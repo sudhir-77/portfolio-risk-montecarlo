@@ -112,6 +112,9 @@ def test_resume_notes_use_metrics_and_plain_language(tmp_path: Path):
         assert snippet.lower() not in lowered
     assert "0.8" in notes or "0.80" in notes
     assert "10000" in notes
+    losses = metrics["metrics"]["stress_cumulative_loss_pct"]
+    assert losses == {"gfc_2008": 40.0, "covid_2020": 25.0, "rates_2022": 12.0}
+    assert "Cumulative losses were 40.0% in the 2008 window, 25.0% in the 2020 window, and 12.0% in the 2022 window." in notes
     blob = json.dumps(metrics)
     assert "10000" in blob
     assert "GARCH-filtered historical simulation" in notes

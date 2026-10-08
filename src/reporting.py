@@ -107,11 +107,19 @@ def _round(value: float | None, digits: int) -> float | None:
     return round(float(value), digits)
 
 
+def _loss_percent(signed_return: float, digits: int = 2) -> float:
+    """Positive percent loss. Resume text drops the minus sign, so the metric must be positive."""
+    rounded = _round(abs(float(signed_return)) * 100.0, digits)
+    if rounded is None:
+        raise ValueError("stress loss percent is not finite")
+    return rounded
+
+
 def resume_figures(metrics_body: dict) -> dict:
     """Rounded figures that the resume bullets are allowed to quote."""
     best = metrics_body["best_method"]
     backtest = metrics_body["backtest"]
-    stress = metrics_body["stress_equal_weight"]
+    losses = metrics_body["stress_cumulative_loss_pct"]
     fund = metrics_body["fund"]
     beta = metrics_body["diagnostics"].get("minvar_beta_on_equal_weight")
     return {
@@ -128,9 +136,9 @@ def resume_figures(metrics_body: dict) -> dict:
         "normal_kupiec_p_99": _round(backtest["normal"]["kupiec_p_99"], 4),
         "n_paths": int(fund["n_paths"]),
         "year5_se_over_mean_pct": _round(fund["year5_se_over_mean"] * 100.0, 3),
-        "gfc_2008_cumulative_return_pct": _round(stress["gfc_2008"] * 100.0, 2),
-        "covid_2020_cumulative_return_pct": _round(stress["covid_2020"] * 100.0, 2),
-        "rates_2022_cumulative_return_pct": _round(stress["rates_2022"] * 100.0, 2),
+        "gfc_2008_cumulative_loss_pct": losses["gfc_2008"],
+        "covid_2020_cumulative_loss_pct": losses["covid_2020"],
+        "rates_2022_cumulative_loss_pct": losses["rates_2022"],
         "stress_year_gfc": 2008,
         "stress_year_covid": 2020,
         "stress_year_rates": 2022,
@@ -178,9 +186,9 @@ def render_resume_notes(metrics: dict) -> str:
         (
             f"Replayed the {figures['stress_year_gfc']}, {figures['stress_year_covid']}, and "
             f"{figures['stress_year_rates']} stress windows on the equal-weight industry portfolio. "
-            f"Cumulative returns were {figures['gfc_2008_cumulative_return_pct']}% in the "
-            f"{figures['stress_year_gfc']} window, {figures['covid_2020_cumulative_return_pct']}% in the "
-            f"{figures['stress_year_covid']} window, and {figures['rates_2022_cumulative_return_pct']}% "
+            f"Cumulative losses were {figures['gfc_2008_cumulative_loss_pct']}% in the "
+            f"{figures['stress_year_gfc']} window, {figures['covid_2020_cumulative_loss_pct']}% in the "
+            f"{figures['stress_year_covid']} window, and {figures['rates_2022_cumulative_loss_pct']}% "
             f"in the {figures['stress_year_rates']} window."
         ),
         (
@@ -387,6 +395,7 @@ def build_metrics(
         for row in stress_rows
         if row["portfolio"] == "equal_weight"
     }
+    stress_loss_pct = {name: _loss_percent(value) for name, value in stress_equal.items()}
     criteria = model_success_criteria(
         best_breach_rate_99=best["breach_rate_99"],
         best_kupiec_p_99=best["kupiec_p_99"],
@@ -404,6 +413,7 @@ def build_metrics(
         "backtest": evaluations,
         "garch": garch_info,
         "stress_equal_weight": stress_equal,
+        "stress_cumulative_loss_pct": stress_loss_pct,
         "stress_rows": stress_rows,
         "hypothetical": hypothetical,
         "fund": {
@@ -442,7 +452,11 @@ def build_metrics(
 
 
 def attach_coverage(metrics_path: Path, coverage_path: Path) -> dict | None:
-    """Add the pytest-cov result to metrics.json when the coverage report exists."""
+    """Add a pytest-cov fraction to a metrics file.
+
+    `python run.py` does not call this. A from-scratch run cannot reproduce a
+    coverage number, and the evaluator flags claimed keys the rerun does not emit.
+    """
     if not coverage_path.exists() or not metrics_path.exists():
         return None
     coverage = json.loads(coverage_path.read_text(encoding="utf-8"))
