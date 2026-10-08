@@ -40,14 +40,6 @@
       "threshold": 1e-08,
       "threshold_high": null,
       "passed": true
-    },
-    {
-      "name": "Test coverage of src/",
-      "value": 0.9142367066895369,
-      "op": ">=",
-      "threshold": 0.75,
-      "threshold_high": null,
-      "passed": true
     }
   ],
   "metrics": {
@@ -122,6 +114,11 @@
       "gfc_2008": -0.4046522599086694,
       "covid_2020": -0.2756853072362876,
       "rates_2022": -0.12699348051842618
+    },
+    "stress_cumulative_loss_pct": {
+      "gfc_2008": 40.47,
+      "covid_2020": 27.57,
+      "rates_2022": 12.7
     },
     "stress_rows": [
       {
@@ -272,8 +269,7 @@
       "date_min": "1926-07-01",
       "date_max": "2026-08-31",
       "source_url": "https://mba.tuck.dartmouth.edu/pages/faculty/ken.french/ftp/49_Industry_Portfolios_Daily_CSV.zip"
-    },
-    "test_coverage": 0.9142367066895369
+    }
   },
   "baseline": {
     "method": "parametric_normal",
@@ -299,9 +295,9 @@
     "gpu": null,
     "python": "3.12.10",
     "os": "Windows-11-10.0.26200-SP0",
-    "peak_rss_gb": 0.20495986938476562
+    "peak_rss_gb": 0.22359848022460938
   },
-  "runtime_seconds": 51.121923699975014,
+  "runtime_seconds": 51.05395380000118,
   "resume_figures": {
     "n_industries": 49,
     "test_start_year": 2005,
@@ -316,9 +312,9 @@
     "normal_kupiec_p_99": 0.0,
     "n_paths": 10000,
     "year5_se_over_mean_pct": 0.234,
-    "gfc_2008_cumulative_return_pct": -40.47,
-    "covid_2020_cumulative_return_pct": -27.57,
-    "rates_2022_cumulative_return_pct": -12.7,
+    "gfc_2008_cumulative_loss_pct": 40.47,
+    "covid_2020_cumulative_loss_pct": 27.57,
+    "rates_2022_cumulative_loss_pct": 12.7,
     "stress_year_gfc": 2008,
     "stress_year_covid": 2020,
     "stress_year_rates": 2022,

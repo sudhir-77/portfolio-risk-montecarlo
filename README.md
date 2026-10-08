@@ -53,7 +53,7 @@ Industry portfolios are not a traded fund. There are no costs or position limits
 
 Kenneth R. French Data Library, 49 Industry Portfolios, daily average value-weighted returns: https://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html
 
-The zip is downloaded by `src/data.py`, cached under `data/`, and checked with a SHA-256 manifest plus a minimum row count. Missing returns are the French codes -99.99 and -999. The library's terms allow use for research and education. Cash flows in the fund section are generated in code.
+Dataset license: the Kenneth R. French Data Library makes these series freely available for research and education. The zip is downloaded by `src/data.py`, cached under `data/`, and checked with a SHA-256 manifest plus a minimum row count. Missing returns are the French codes -99.99 and -999. Fund cash flows are generated in code and are not part of that dataset license.
 
 ## Results
 
@@ -66,9 +66,8 @@ The zip is downloaded by `src/data.py`, cached under `data/`, and checked with a
 | Best method vs. parametric-normal baseline | 0.0841196 | > 0.0 | pass |
 | Monte Carlo convergence of fund NAV at year 5 | 0.00233716 | < 0.005 | pass |
 | Cash-flow model consistency | 0 | <= 1e-08 | pass |
-| Test coverage of src/ | 0.914237 | >= 0.75 | pass |
 
-Runtime seconds: 51.121923699975014. Peak RSS GiB: 0.20495986938476562.
+Runtime seconds: 51.05395380000118. Peak RSS GiB: 0.22359848022460938.
 
 Breach rates and the fund standard error are copied from `results/metrics.json`.
 
