@@ -1,0 +1,330 @@
+{
+  "project": "portfolio-risk-montecarlo",
+  "success_criteria": [
+    {
+      "name": "99% one-day VaR breach rate of the best method, out of sample 2005-2024",
+      "value": 0.012517385257301807,
+      "op": "between",
+      "threshold": 0.005,
+      "threshold_high": 0.016,
+      "passed": true
+    },
+    {
+      "name": "Kupiec POF test for the best method at 99%",
+      "value": 0.0841195875468753,
+      "op": ">=",
+      "threshold": 0.05,
+      "threshold_high": null,
+      "passed": true
+    },
+    {
+      "name": "Best method vs. parametric-normal baseline",
+      "value": 0.0841195875468753,
+      "op": ">",
+      "threshold": 0.0,
+      "threshold_high": null,
+      "passed": true
+    },
+    {
+      "name": "Monte Carlo convergence of fund NAV at year 5",
+      "value": 0.0023371571516436936,
+      "op": "<",
+      "threshold": 0.005,
+      "threshold_high": null,
+      "passed": true
+    },
+    {
+      "name": "Cash-flow model consistency",
+      "value": 0.0,
+      "op": "<=",
+      "threshold": 1e-08,
+      "threshold_high": null,
+      "passed": true
+    },
+    {
+      "name": "Test coverage of src/",
+      "value": 0.9142367066895369,
+      "op": ">=",
+      "threshold": 0.75,
+      "threshold_high": null,
+      "passed": true
+    }
+  ],
+  "metrics": {
+    "mode": "full",
+    "portfolio": "equal_weight_49_industry",
+    "best_method": "fhs",
+    "backtest": {
+      "normal": {
+        "breach_count_95": 293,
+        "breach_rate_95": 0.058215775879197296,
+        "kupiec_stat_95": 6.808796022658498,
+        "kupiec_p_95": 0.009070990578351118,
+        "christoffersen_stat_95": 26.516186588216442,
+        "christoffersen_p_95": 2.6133914827400194e-07,
+        "mean_var_95": 0.018453201339847146,
+        "breach_count_99": 132,
+        "breach_rate_99": 0.026226902443870454,
+        "kupiec_stat_99": 92.55497069222383,
+        "kupiec_p_99": 6.548047811534054e-22,
+        "christoffersen_stat_99": 11.267968719049804,
+        "christoffersen_p_99": 0.0007885596881980362,
+        "mean_var_99": 0.026299101873723453,
+        "n": 5033,
+        "mean_cvar_95": 0.023263926568726695,
+        "mean_cvar_99": 0.030200399146212736
+      },
+      "hs": {
+        "breach_count_95": 279,
+        "breach_rate_95": 0.05543413471090801,
+        "kupiec_stat_95": 3.027027150124468,
+        "kupiec_p_95": 0.08188792804453073,
+        "christoffersen_stat_95": 36.751126622964875,
+        "christoffersen_p_95": 1.3421303372179284e-09,
+        "mean_var_95": 0.018812386271019388,
+        "breach_count_99": 91,
+        "breach_rate_99": 0.01808066759388039,
+        "kupiec_stat_99": 26.783857046989397,
+        "kupiec_p_99": 2.2753011287394407e-07,
+        "christoffersen_stat_99": 7.250050461422916,
+        "christoffersen_p_99": 0.0070899019836821375,
+        "mean_var_99": 0.031016698256811127,
+        "n": 5033,
+        "mean_cvar_95": 0.026503392741345114,
+        "mean_cvar_99": 0.03699872163449127
+      },
+      "fhs": {
+        "breach_count_95": 267,
+        "breach_rate_95": 0.05304987085237433,
+        "kupiec_stat_95": 0.9671653574655465,
+        "kupiec_p_95": 0.3253881494405497,
+        "christoffersen_stat_95": 0.0010303869958079304,
+        "christoffersen_p_95": 0.9743925891644372,
+        "mean_var_95": 0.01861723690924563,
+        "breach_count_99": 63,
+        "breach_rate_99": 0.012517385257301807,
+        "kupiec_stat_99": 2.9834538941006485,
+        "kupiec_p_99": 0.0841195875468753,
+        "christoffersen_stat_99": 0.053556038206579615,
+        "christoffersen_p_99": 0.8169871498086397,
+        "mean_var_99": 0.029307386777271714,
+        "n": 5033,
+        "mean_cvar_95": 0.025298589844668203,
+        "mean_cvar_99": 0.03519382520461999
+      }
+    },
+    "garch": {
+      "fit_failures": 0,
+      "nonconvergences": 0,
+      "n_forecasts": 5033
+    },
+    "stress_equal_weight": {
+      "gfc_2008": -0.4046522599086694,
+      "covid_2020": -0.2756853072362876,
+      "rates_2022": -0.12699348051842618
+    },
+    "stress_rows": [
+      {
+        "window": "gfc_2008",
+        "portfolio": "equal_weight",
+        "start": "2008-09-01",
+        "end": "2009-03-31",
+        "n_days": 146,
+        "cumulative_return": -0.4046522599086694,
+        "worst_day": "2008-12-01",
+        "worst_day_return": -0.0948816326530612,
+        "breach_count_99_normal": 17.0,
+        "var99_normal_on_worst_day": 0.05847106831405412,
+        "breach_count_99_hs": 12.0,
+        "var99_hs_on_worst_day": 0.0715977142857143,
+        "breach_count_99_fhs": 4.0,
+        "var99_fhs_on_worst_day": 0.12054414742559619
+      },
+      {
+        "window": "gfc_2008",
+        "portfolio": "min_variance",
+        "start": "2008-09-01",
+        "end": "2009-03-31",
+        "n_days": 146,
+        "cumulative_return": -0.25762512825838046,
+        "worst_day": "2008-10-09",
+        "worst_day_return": -0.07376075678414726,
+        "breach_count_99_normal": null,
+        "var99_normal_on_worst_day": null,
+        "breach_count_99_hs": null,
+        "var99_hs_on_worst_day": null,
+        "breach_count_99_fhs": null,
+        "var99_fhs_on_worst_day": null
+      },
+      {
+        "window": "covid_2020",
+        "portfolio": "equal_weight",
+        "start": "2020-02-15",
+        "end": "2020-03-31",
+        "n_days": 31,
+        "cumulative_return": -0.2756853072362876,
+        "worst_day": "2020-03-16",
+        "worst_day_return": -0.11509795918367344,
+        "breach_count_99_normal": 10.0,
+        "var99_normal_on_worst_day": 0.033778112754469396,
+        "breach_count_99_hs": 9.0,
+        "var99_hs_on_worst_day": 0.04588608163265305,
+        "breach_count_99_fhs": 2.0,
+        "var99_fhs_on_worst_day": 0.2105087353432679
+      },
+      {
+        "window": "covid_2020",
+        "portfolio": "min_variance",
+        "start": "2020-02-15",
+        "end": "2020-03-31",
+        "n_days": 31,
+        "cumulative_return": -0.21658147356896684,
+        "worst_day": "2020-03-16",
+        "worst_day_return": -0.09460364896095258,
+        "breach_count_99_normal": null,
+        "var99_normal_on_worst_day": null,
+        "breach_count_99_hs": null,
+        "var99_hs_on_worst_day": null,
+        "breach_count_99_fhs": null,
+        "var99_fhs_on_worst_day": null
+      },
+      {
+        "window": "rates_2022",
+        "portfolio": "equal_weight",
+        "start": "2022-01-03",
+        "end": "2022-10-31",
+        "n_days": 209,
+        "cumulative_return": -0.12699348051842618,
+        "worst_day": "2022-06-13",
+        "worst_day_return": -0.0429877551020408,
+        "breach_count_99_normal": 11.0,
+        "var99_normal_on_worst_day": 0.027118327794467517,
+        "breach_count_99_hs": 9.0,
+        "var99_hs_on_worst_day": 0.031189346938775512,
+        "breach_count_99_fhs": 1.0,
+        "var99_fhs_on_worst_day": 0.058414959009875436
+      },
+      {
+        "window": "rates_2022",
+        "portfolio": "min_variance",
+        "start": "2022-01-03",
+        "end": "2022-10-31",
+        "n_days": 209,
+        "cumulative_return": -0.062123311604752374,
+        "worst_day": "2022-05-18",
+        "worst_day_return": -0.03579475394162432,
+        "breach_count_99_normal": null,
+        "var99_normal_on_worst_day": null,
+        "breach_count_99_hs": null,
+        "var99_hs_on_worst_day": null,
+        "breach_count_99_fhs": null,
+        "var99_fhs_on_worst_day": null
+      }
+    ],
+    "hypothetical": {
+      "name": "synchronous_industry_1st_percentile",
+      "history_cutoff": "2004-12-31",
+      "portfolio_return": -0.04171108163265306,
+      "loss": 0.04171108163265306,
+      "median_var99": {
+        "normal": 0.022035431508246345,
+        "hs": 0.026092489795918373,
+        "fhs": 0.023768046784555383
+      }
+    },
+    "fund": {
+      "n_paths": 10000,
+      "year5_nav_mean": 0.7875045633589012,
+      "year5_nav_se": 0.0018405219222063,
+      "year5_se_over_mean": 0.0023371571516436936,
+      "max_calls_over_commitment": 0.0,
+      "min_nav": 0.0,
+      "scenario_year5_nav_mean": {
+        "low": 0.6013491687962753,
+        "base": 0.7875045633588985,
+        "high": 0.9683550060917744
+      },
+      "cashflows": {
+        "irr_mean": 0.11239249268364979,
+        "irr_median": 0.11001303871862866,
+        "irr_of_mean_cash_flows": 0.12005776464666129,
+        "irr_valid_fraction": 1.0,
+        "npv_of_mean_cash_flows": 0.13278549209917448,
+        "discount_rate": 0.08
+      }
+    },
+    "diagnostics": {
+      "train_n": 20868,
+      "ljung_box_squared_lag10_p": 0.0,
+      "jarque_bera_stat": 373526.78401000344,
+      "jarque_bera_p": 0.0,
+      "train_skew": -0.1923434421981231,
+      "train_kurtosis": 23.722935041012672,
+      "minvar_beta_on_equal_weight": 0.6230938607688861,
+      "minvar_r_squared": 0.7440467100555141,
+      "minvar_regression_n": 3784
+    },
+    "data": {
+      "filename": "49_Industry_Portfolios_Daily_CSV.zip",
+      "sha256": "8f394fe34bea54d41b9aafed410425ee8f8e252ede3c71a7c1cd20bab83040de",
+      "n_rows": 26317,
+      "n_industries": 49,
+      "date_min": "1926-07-01",
+      "date_max": "2026-08-31",
+      "source_url": "https://mba.tuck.dartmouth.edu/pages/faculty/ken.french/ftp/49_Industry_Portfolios_Daily_CSV.zip"
+    },
+    "test_coverage": 0.9142367066895369
+  },
+  "baseline": {
+    "method": "parametric_normal",
+    "window": 252,
+    "breach_count_99": 132,
+    "breach_rate_99": 0.026226902443870454,
+    "kupiec_p_99": 6.548047811534054e-22,
+    "kupiec_stat_99": 92.55497069222383
+  },
+  "splits": {
+    "french_49_daily": {
+      "train": 20868,
+      "val": 0,
+      "test": 5033
+    }
+  },
+  "seeds": [
+    42
+  ],
+  "hardware": {
+    "cpu": "Intel64 Family 6 Model 141 Stepping 1, GenuineIntel",
+    "ram_gb": 15.73,
+    "gpu": null,
+    "python": "3.12.10",
+    "os": "Windows-11-10.0.26200-SP0",
+    "peak_rss_gb": 0.20495986938476562
+  },
+  "runtime_seconds": 51.121923699975014,
+  "resume_figures": {
+    "n_industries": 49,
+    "test_start_year": 2005,
+    "test_end_year": 2024,
+    "var_level": 99,
+    "best_method": "fhs",
+    "best_method_name": "GARCH-filtered historical simulation",
+    "best_breach_rate_99_pct": 1.25,
+    "best_kupiec_p_99": 0.0841,
+    "normal_breach_rate_99_pct": 2.62,
+    "normal_breach_count_99": 132,
+    "normal_kupiec_p_99": 0.0,
+    "n_paths": 10000,
+    "year5_se_over_mean_pct": 0.234,
+    "gfc_2008_cumulative_return_pct": -40.47,
+    "covid_2020_cumulative_return_pct": -27.57,
+    "rates_2022_cumulative_return_pct": -12.7,
+    "stress_year_gfc": 2008,
+    "stress_year_covid": 2020,
+    "stress_year_rates": 2022,
+    "minvar_beta_on_equal_weight": 0.62,
+    "fund_year": 5,
+    "diagnostic_start_year": 1990,
+    "diagnostic_end_year": 2004
+  }
+}
